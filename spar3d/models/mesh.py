@@ -258,7 +258,7 @@ class Mesh:
             )
 
         # Convert to numpy
-        v_pos = self.v_pos.detach().cpu().numpy().astype(np.float64)
+        v_pos = self.v_pos.detach().cpu().numpy().astype(np.float32)
         t_pos_idx = self.t_pos_idx.detach().cpu().numpy().astype(np.int32)
 
         # Remesh

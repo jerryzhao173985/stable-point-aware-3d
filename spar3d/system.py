@@ -667,13 +667,13 @@ class SPAR3D(BaseModule):
 
         if pointcloud is not None:
             if isinstance(pointcloud, list):
-                cond_tensor = torch.tensor(pointcloud).float().cuda().view(-1, 6)
+                cond_tensor = torch.tensor(pointcloud).float().view(-1, 6)
                 xyz = cond_tensor[:, :3]
                 color_rgb = cond_tensor[:, 3:]
             # Check if point cloud is a numpy array
             elif isinstance(pointcloud, np.ndarray):
-                xyz = torch.tensor(pointcloud[:, :3]).float().cuda()
-                color_rgb = torch.tensor(pointcloud[:, 3:]).float().cuda()
+                xyz = torch.tensor(pointcloud[:, :3]).float()
+                color_rgb = torch.tensor(pointcloud[:, 3:]).float()
             else:
                 raise ValueError("Invalid point cloud type")
 

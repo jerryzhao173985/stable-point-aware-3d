@@ -3,6 +3,8 @@ import os
 from contextlib import nullcontext
 
 import torch
+if torch.backends.mps.is_available():
+    torch.set_default_dtype(torch.float32)
 from PIL import Image
 from tqdm import tqdm
 from transparent_background import Remover

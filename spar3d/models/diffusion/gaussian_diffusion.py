@@ -49,7 +49,7 @@ def get_beta_schedule(beta_schedule, *, beta_start, beta_end, num_diffusion_time
     """
     if beta_schedule == "linear":
         betas = np.linspace(
-            beta_start, beta_end, num_diffusion_timesteps, dtype=np.float64
+            beta_start, beta_end, num_diffusion_timesteps, dtype=np.float32
         )
     else:
         raise NotImplementedError(beta_schedule)
@@ -169,6 +169,7 @@ def space_timesteps(num_timesteps, section_counts):
 
 def _extract_into_tensor(arr, timesteps, broadcast_shape):
     """Extract values from a 1-D numpy array for a batch of indices."""
+    arr = arr.astype(np.float32)
     res = th.from_numpy(arr).to(device=timesteps.device)[timesteps].float()
     while len(res.shape) < len(broadcast_shape):
         res = res[..., None]
@@ -195,7 +196,7 @@ class GaussianDiffusion:
         self.channel_biases = channel_biases
 
         # Use float64 for accuracy
-        betas = np.array(betas, dtype=np.float64)
+        betas = np.array(betas, dtype=np.float32)
         self.betas = betas
         assert len(betas.shape) == 1, "betas must be 1-D"
         assert (betas > 0).all() and (betas <= 1).all()
