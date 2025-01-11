@@ -122,9 +122,6 @@ class ClipBasedHeadEstimator(BaseModule):
         )(cond_image)
         mask = Normalize(0.5, 0.26)(mask).float()
         image_features = self.model.visual(cond_image.float(), mask)
-        print(cond_image.dtype)
-        print(mask.dtype)
-        print(image_features.dtype)
 
         # Run the heads
         outputs = {}
